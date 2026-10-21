@@ -1,0 +1,9 @@
+{
+  "checkedAt": "2026-10-21T15:13:53.688027+00:00",
+  "provider": "Gmail SMTP",
+  "connectionVerified": true,
+  "tlsVerified": true,
+  "authenticationVerified": true,
+  "emailsSentDuringCheck": 0,
+  "inboxDeliveryVerified": false
+}

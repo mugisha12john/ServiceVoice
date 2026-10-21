@@ -1,0 +1,35 @@
+{
+  "checkedAt": "2026-10-21T15:30:01.888Z",
+  "productionBuild": "passed",
+  "typecheck": "passed",
+  "lint": {
+    "result": "passed",
+    "warnings": 0
+  },
+  "unitTests": 17,
+  "systemChecks": 36,
+  "browserViewportCases": 24,
+  "browserWidths": [1440, 390],
+  "seriousOrCriticalAxeViolations": 0,
+  "productionDependencyVulnerabilities": 0,
+  "developmentDependencyAdvisoryEntries": 5,
+  "credentialScan": "passed",
+  "liveNeonReadOnlySmoke": "passed",
+  "externalEmailDeliveryVerified": false,
+  "externalS3Verified": false,
+  "productionScheduleActivated": false,
+  "administratorBootstrap": {
+    "existingAdministratorConfirmed": true,
+    "requestedAccountIsActiveAdministrator": true,
+    "credentialChanges": false,
+    "existingAdministratorMessageVerified": true,
+    "isolatedSafetyChecks": 4
+  },
+  "localPrivateStorage": {
+    "configured": true,
+    "directoryPermissions": "700",
+    "environmentFilePermissions": "600"
+  },
+  "databaseCertificateVerification": "verify-full",
+  "schedulerRunnerFixtureChecks": 4
+}

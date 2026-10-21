@@ -1,0 +1,9 @@
+{
+  "checkedAt": "2026-10-21T15:29:25.294Z",
+  "database": "disposable local PostgreSQL",
+  "passed": 36,
+  "productionDataTouched": false,
+  "artifacts": "artifacts/",
+  "externalEmailProviderTested": false,
+  "externalStorageTested": false
+}

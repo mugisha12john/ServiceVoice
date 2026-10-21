@@ -1,0 +1,10 @@
+{
+  "checkedAt": "2026-10-21T12:04:16.251Z",
+  "publicDirectoryAPI": 200,
+  "loginPage": 200,
+  "unauthenticatedProfileAPI": 401,
+  "originalColumnsPreserved": true,
+  "originalFunctionsPreserved": true,
+  "originalViewsPreserved": true,
+  "applicationRowsWritten": 0
+}
