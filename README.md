@@ -2,6 +2,10 @@
 
 Company Service Evaluation and Complaint Management System. A Next.js App Router application with TypeScript, Tailwind CSS, Lucide, React Hook Form, Zod, Drizzle, PostgreSQL/Neon, Auth.js, private evidence storage, and an email outbox worker.
 
+## UI
+
+![alt text](artifacts/home-1440.png)
+
 ## Start locally
 
 Use Node.js 22 LTS or newer and npm. The lockfile records the tested dependency versions.
