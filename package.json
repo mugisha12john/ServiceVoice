@@ -1,0 +1,65 @@
+{
+  "name": "company-service-feedback",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --hostname 0.0.0.0",
+    "build": "next build --webpack",
+    "start": "next start --hostname 0.0.0.0",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "db:inspect": "tsx --env-file=.env.local scripts/inspect-db.ts",
+    "admin:create": "tsx --env-file=.env.local scripts/create-admin.ts",
+    "test:integration": "npm run test:system",
+    "db:migrate": "tsx --env-file=.env.local scripts/apply-migration.ts",
+    "test:system": "tsx scripts/test-system.ts",
+    "format": "prettier --write src scripts tests next.config.ts tsconfig.json package.json eslint.config.mjs postcss.config.mjs vitest.config.ts"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1154.0",
+    "@hookform/resolvers": "^5.9.2",
+    "bcryptjs": "^3.0.3",
+    "clsx": "^2.1.1",
+    "drizzle-orm": "^0.45.4",
+    "lucide-react": "^1.61.0",
+    "next": "^16.4.2",
+    "next-auth": "^5.0.0-beta.32",
+    "nodemailer": "^10.1.7",
+    "pg": "^8.23.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-hook-form": "^7.90.0",
+    "server-only": "^0.0.1",
+    "tailwind-merge": "^3.7.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.64.1",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^26.6.5",
+    "@types/nodemailer": "^8.0.2",
+    "@types/pg": "^8.23.1",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/smtp-server": "^3.5.13",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.4.2",
+    "postcss": "^8.5.31",
+    "prettier": "^3.9.10",
+    "smtp-server": "^3.20.2",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3",
+    "vitest": "^5.0.5"
+  },
+  "overrides": {
+    "nodemailer": "$nodemailer"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  }
+}
