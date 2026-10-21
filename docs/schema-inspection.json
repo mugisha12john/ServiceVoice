@@ -1,0 +1,1787 @@
+{
+  "inspectedAt": "2026-10-21T11:00:40.031Z",
+  "columns": [
+    {
+      "table_name": "assessor_assignments",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "assessor_assignments",
+      "column_name": "organization_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "assessor_assignments",
+      "column_name": "authority_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "assessor_assignments",
+      "column_name": "assigned_by",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "assessor_assignments",
+      "column_name": "assigned_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "statement_timestamp()"
+    },
+    {
+      "table_name": "assessor_assignments",
+      "column_name": "ended_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "complaint_attachments",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "complaint_attachments",
+      "column_name": "complaint_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "complaint_attachments",
+      "column_name": "uploaded_by",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "complaint_attachments",
+      "column_name": "original_filename",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "complaint_attachments",
+      "column_name": "storage_key",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "complaint_attachments",
+      "column_name": "mime_type",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "complaint_attachments",
+      "column_name": "size_bytes",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "complaint_attachments",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "statement_timestamp()"
+    },
+    {
+      "table_name": "complaint_messages",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "complaint_messages",
+      "column_name": "complaint_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "complaint_messages",
+      "column_name": "author_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "complaint_messages",
+      "column_name": "body",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "complaint_messages",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "statement_timestamp()"
+    },
+    {
+      "table_name": "complaints",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "complaints",
+      "column_name": "reference_number",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "complaints",
+      "column_name": "consumer_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "complaints",
+      "column_name": "service_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "complaints",
+      "column_name": "assignment_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "complaints",
+      "column_name": "description",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "complaints",
+      "column_name": "status",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": "'PENDING'::character varying"
+    },
+    {
+      "table_name": "complaints",
+      "column_name": "submitted_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "statement_timestamp()"
+    },
+    {
+      "table_name": "complaints",
+      "column_name": "response_due_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "(statement_timestamp() + '72:00:00'::interval)"
+    },
+    {
+      "table_name": "complaints",
+      "column_name": "first_response_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "complaints",
+      "column_name": "resolved_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "email_verification_codes",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "email_verification_codes",
+      "column_name": "user_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "email_verification_codes",
+      "column_name": "code_hash",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "email_verification_codes",
+      "column_name": "expires_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "email_verification_codes",
+      "column_name": "consumed_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "email_verification_codes",
+      "column_name": "failed_attempts",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "email_verification_codes",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "statement_timestamp()"
+    },
+    {
+      "table_name": "latest_consumer_ratings",
+      "column_name": "review_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "latest_consumer_ratings",
+      "column_name": "service_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "latest_consumer_ratings",
+      "column_name": "consumer_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "latest_consumer_ratings",
+      "column_name": "stars",
+      "data_type": "smallint",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "latest_consumer_ratings",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "memberships",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "memberships",
+      "column_name": "user_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "memberships",
+      "column_name": "organization_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "memberships",
+      "column_name": "role",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "memberships",
+      "column_name": "is_active",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "memberships",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "statement_timestamp()"
+    },
+    {
+      "table_name": "notification_outbox",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "notification_outbox",
+      "column_name": "complaint_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "notification_outbox",
+      "column_name": "recipient_organization_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "notification_outbox",
+      "column_name": "recipient_role",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "notification_outbox",
+      "column_name": "event_type",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "notification_outbox",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "statement_timestamp()"
+    },
+    {
+      "table_name": "notification_outbox",
+      "column_name": "delivered_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "notification_outbox",
+      "column_name": "attempts",
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "column_default": "0"
+    },
+    {
+      "table_name": "notification_outbox",
+      "column_name": "last_error",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "organizations",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "organizations",
+      "column_name": "name",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "organizations",
+      "column_name": "sector",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "organizations",
+      "column_name": "organization_type",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "organizations",
+      "column_name": "can_assess",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "organizations",
+      "column_name": "description",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "organizations",
+      "column_name": "contact_email",
+      "data_type": "character varying",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "organizations",
+      "column_name": "contact_phone",
+      "data_type": "character varying",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "organizations",
+      "column_name": "address",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "organizations",
+      "column_name": "is_active",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "organizations",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "statement_timestamp()"
+    },
+    {
+      "table_name": "organizations",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "statement_timestamp()"
+    },
+    {
+      "table_name": "public_reviews",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "public_reviews",
+      "column_name": "service_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "public_reviews",
+      "column_name": "consumer_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "public_reviews",
+      "column_name": "username",
+      "data_type": "character varying",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "public_reviews",
+      "column_name": "profile_picture_url",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "public_reviews",
+      "column_name": "stars",
+      "data_type": "smallint",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "public_reviews",
+      "column_name": "comment",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "public_reviews",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "public_reviews",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "resolution_proposals",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "resolution_proposals",
+      "column_name": "complaint_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "resolution_proposals",
+      "column_name": "proposed_by",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "resolution_proposals",
+      "column_name": "description",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "resolution_proposals",
+      "column_name": "proposed_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "statement_timestamp()"
+    },
+    {
+      "table_name": "resolution_proposals",
+      "column_name": "confirmed_by",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "resolution_proposals",
+      "column_name": "confirmed_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "review_replies",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "review_replies",
+      "column_name": "review_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "review_replies",
+      "column_name": "author_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "review_replies",
+      "column_name": "body",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "review_replies",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "statement_timestamp()"
+    },
+    {
+      "table_name": "review_replies",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "statement_timestamp()"
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "consumer_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "service_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "stars",
+      "data_type": "smallint",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "comment",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "statement_timestamp()"
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "statement_timestamp()"
+    },
+    {
+      "table_name": "reviews",
+      "column_name": "deleted_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "service_rating_summary",
+      "column_name": "service_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "service_rating_summary",
+      "column_name": "organization_id",
+      "data_type": "uuid",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "service_rating_summary",
+      "column_name": "name",
+      "data_type": "character varying",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "service_rating_summary",
+      "column_name": "reviewer_count",
+      "data_type": "bigint",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "service_rating_summary",
+      "column_name": "average_rating",
+      "data_type": "numeric",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "services",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "services",
+      "column_name": "organization_id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "services",
+      "column_name": "name",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "services",
+      "column_name": "description",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "services",
+      "column_name": "is_active",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "services",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "statement_timestamp()"
+    },
+    {
+      "table_name": "services",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "statement_timestamp()"
+    },
+    {
+      "table_name": "users",
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO",
+      "column_default": "gen_random_uuid()"
+    },
+    {
+      "table_name": "users",
+      "column_name": "username",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "users",
+      "column_name": "email",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "users",
+      "column_name": "password_hash",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "column_default": null
+    },
+    {
+      "table_name": "users",
+      "column_name": "profile_picture_url",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "users",
+      "column_name": "email_verified_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "column_default": null
+    },
+    {
+      "table_name": "users",
+      "column_name": "is_super_admin",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": "false"
+    },
+    {
+      "table_name": "users",
+      "column_name": "is_active",
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "column_default": "true"
+    },
+    {
+      "table_name": "users",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "statement_timestamp()"
+    },
+    {
+      "table_name": "users",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "column_default": "statement_timestamp()"
+    }
+  ],
+  "constraints": [
+    {
+      "relation": "company_feedback.assessor_assignments",
+      "name": "assessor_assignments_assigned_at_not_null",
+      "definition": "NOT NULL assigned_at"
+    },
+    {
+      "relation": "company_feedback.assessor_assignments",
+      "name": "assessor_assignments_assigned_by_fkey",
+      "definition": "FOREIGN KEY (assigned_by) REFERENCES company_feedback.users(id)"
+    },
+    {
+      "relation": "company_feedback.assessor_assignments",
+      "name": "assessor_assignments_assigned_by_not_null",
+      "definition": "NOT NULL assigned_by"
+    },
+    {
+      "relation": "company_feedback.assessor_assignments",
+      "name": "assessor_assignments_authority_id_fkey",
+      "definition": "FOREIGN KEY (authority_id) REFERENCES company_feedback.organizations(id)"
+    },
+    {
+      "relation": "company_feedback.assessor_assignments",
+      "name": "assessor_assignments_authority_id_not_null",
+      "definition": "NOT NULL authority_id"
+    },
+    {
+      "relation": "company_feedback.assessor_assignments",
+      "name": "assessor_assignments_check",
+      "definition": "CHECK ((organization_id <> authority_id))"
+    },
+    {
+      "relation": "company_feedback.assessor_assignments",
+      "name": "assessor_assignments_check1",
+      "definition": "CHECK (((ended_at IS NULL) OR (ended_at >= assigned_at)))"
+    },
+    {
+      "relation": "company_feedback.assessor_assignments",
+      "name": "assessor_assignments_id_not_null",
+      "definition": "NOT NULL id"
+    },
+    {
+      "relation": "company_feedback.assessor_assignments",
+      "name": "assessor_assignments_organization_id_fkey",
+      "definition": "FOREIGN KEY (organization_id) REFERENCES company_feedback.organizations(id)"
+    },
+    {
+      "relation": "company_feedback.assessor_assignments",
+      "name": "assessor_assignments_organization_id_not_null",
+      "definition": "NOT NULL organization_id"
+    },
+    {
+      "relation": "company_feedback.assessor_assignments",
+      "name": "assessor_assignments_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "relation": "company_feedback.complaint_attachments",
+      "name": "complaint_attachments_complaint_id_fkey",
+      "definition": "FOREIGN KEY (complaint_id) REFERENCES company_feedback.complaints(id)"
+    },
+    {
+      "relation": "company_feedback.complaint_attachments",
+      "name": "complaint_attachments_complaint_id_not_null",
+      "definition": "NOT NULL complaint_id"
+    },
+    {
+      "relation": "company_feedback.complaint_attachments",
+      "name": "complaint_attachments_created_at_not_null",
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "relation": "company_feedback.complaint_attachments",
+      "name": "complaint_attachments_id_not_null",
+      "definition": "NOT NULL id"
+    },
+    {
+      "relation": "company_feedback.complaint_attachments",
+      "name": "complaint_attachments_mime_type_not_null",
+      "definition": "NOT NULL mime_type"
+    },
+    {
+      "relation": "company_feedback.complaint_attachments",
+      "name": "complaint_attachments_original_filename_not_null",
+      "definition": "NOT NULL original_filename"
+    },
+    {
+      "relation": "company_feedback.complaint_attachments",
+      "name": "complaint_attachments_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "relation": "company_feedback.complaint_attachments",
+      "name": "complaint_attachments_size_bytes_check",
+      "definition": "CHECK ((size_bytes > 0))"
+    },
+    {
+      "relation": "company_feedback.complaint_attachments",
+      "name": "complaint_attachments_size_bytes_not_null",
+      "definition": "NOT NULL size_bytes"
+    },
+    {
+      "relation": "company_feedback.complaint_attachments",
+      "name": "complaint_attachments_storage_key_key",
+      "definition": "UNIQUE (storage_key)"
+    },
+    {
+      "relation": "company_feedback.complaint_attachments",
+      "name": "complaint_attachments_storage_key_not_null",
+      "definition": "NOT NULL storage_key"
+    },
+    {
+      "relation": "company_feedback.complaint_attachments",
+      "name": "complaint_attachments_uploaded_by_fkey",
+      "definition": "FOREIGN KEY (uploaded_by) REFERENCES company_feedback.users(id)"
+    },
+    {
+      "relation": "company_feedback.complaint_attachments",
+      "name": "complaint_attachments_uploaded_by_not_null",
+      "definition": "NOT NULL uploaded_by"
+    },
+    {
+      "relation": "company_feedback.complaint_messages",
+      "name": "complaint_messages_author_id_fkey",
+      "definition": "FOREIGN KEY (author_id) REFERENCES company_feedback.users(id)"
+    },
+    {
+      "relation": "company_feedback.complaint_messages",
+      "name": "complaint_messages_author_id_not_null",
+      "definition": "NOT NULL author_id"
+    },
+    {
+      "relation": "company_feedback.complaint_messages",
+      "name": "complaint_messages_body_check",
+      "definition": "CHECK ((length(btrim(body)) > 0))"
+    },
+    {
+      "relation": "company_feedback.complaint_messages",
+      "name": "complaint_messages_body_not_null",
+      "definition": "NOT NULL body"
+    },
+    {
+      "relation": "company_feedback.complaint_messages",
+      "name": "complaint_messages_complaint_id_fkey",
+      "definition": "FOREIGN KEY (complaint_id) REFERENCES company_feedback.complaints(id)"
+    },
+    {
+      "relation": "company_feedback.complaint_messages",
+      "name": "complaint_messages_complaint_id_not_null",
+      "definition": "NOT NULL complaint_id"
+    },
+    {
+      "relation": "company_feedback.complaint_messages",
+      "name": "complaint_messages_created_at_not_null",
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "relation": "company_feedback.complaint_messages",
+      "name": "complaint_messages_id_not_null",
+      "definition": "NOT NULL id"
+    },
+    {
+      "relation": "company_feedback.complaint_messages",
+      "name": "complaint_messages_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "relation": "company_feedback.complaints",
+      "name": "complaints_assignment_id_fkey",
+      "definition": "FOREIGN KEY (assignment_id) REFERENCES company_feedback.assessor_assignments(id)"
+    },
+    {
+      "relation": "company_feedback.complaints",
+      "name": "complaints_assignment_id_not_null",
+      "definition": "NOT NULL assignment_id"
+    },
+    {
+      "relation": "company_feedback.complaints",
+      "name": "complaints_check",
+      "definition": "CHECK ((response_due_at > submitted_at))"
+    },
+    {
+      "relation": "company_feedback.complaints",
+      "name": "complaints_check1",
+      "definition": "CHECK (((first_response_at IS NULL) OR (first_response_at >= submitted_at)))"
+    },
+    {
+      "relation": "company_feedback.complaints",
+      "name": "complaints_check2",
+      "definition": "CHECK (((((status)::text = 'PENDING'::text) AND (resolved_at IS NULL)) OR (((status)::text = 'RESOLVED'::text) AND (resolved_at IS NOT NULL) AND (resolved_at >= submitted_at))))"
+    },
+    {
+      "relation": "company_feedback.complaints",
+      "name": "complaints_consumer_id_fkey",
+      "definition": "FOREIGN KEY (consumer_id) REFERENCES company_feedback.users(id)"
+    },
+    {
+      "relation": "company_feedback.complaints",
+      "name": "complaints_consumer_id_not_null",
+      "definition": "NOT NULL consumer_id"
+    },
+    {
+      "relation": "company_feedback.complaints",
+      "name": "complaints_description_check",
+      "definition": "CHECK ((length(btrim(description)) > 0))"
+    },
+    {
+      "relation": "company_feedback.complaints",
+      "name": "complaints_description_not_null",
+      "definition": "NOT NULL description"
+    },
+    {
+      "relation": "company_feedback.complaints",
+      "name": "complaints_id_not_null",
+      "definition": "NOT NULL id"
+    },
+    {
+      "relation": "company_feedback.complaints",
+      "name": "complaints_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "relation": "company_feedback.complaints",
+      "name": "complaints_reference_number_key",
+      "definition": "UNIQUE (reference_number)"
+    },
+    {
+      "relation": "company_feedback.complaints",
+      "name": "complaints_reference_number_not_null",
+      "definition": "NOT NULL reference_number"
+    },
+    {
+      "relation": "company_feedback.complaints",
+      "name": "complaints_response_due_at_not_null",
+      "definition": "NOT NULL response_due_at"
+    },
+    {
+      "relation": "company_feedback.complaints",
+      "name": "complaints_service_id_fkey",
+      "definition": "FOREIGN KEY (service_id) REFERENCES company_feedback.services(id)"
+    },
+    {
+      "relation": "company_feedback.complaints",
+      "name": "complaints_service_id_not_null",
+      "definition": "NOT NULL service_id"
+    },
+    {
+      "relation": "company_feedback.complaints",
+      "name": "complaints_status_check",
+      "definition": "CHECK (((status)::text = ANY ((ARRAY['PENDING'::character varying, 'RESOLVED'::character varying])::text[])))"
+    },
+    {
+      "relation": "company_feedback.complaints",
+      "name": "complaints_status_not_null",
+      "definition": "NOT NULL status"
+    },
+    {
+      "relation": "company_feedback.complaints",
+      "name": "complaints_submitted_at_not_null",
+      "definition": "NOT NULL submitted_at"
+    },
+    {
+      "relation": "company_feedback.email_verification_codes",
+      "name": "email_verification_codes_check",
+      "definition": "CHECK ((expires_at > created_at))"
+    },
+    {
+      "relation": "company_feedback.email_verification_codes",
+      "name": "email_verification_codes_check1",
+      "definition": "CHECK (((consumed_at IS NULL) OR (consumed_at >= created_at)))"
+    },
+    {
+      "relation": "company_feedback.email_verification_codes",
+      "name": "email_verification_codes_code_hash_not_null",
+      "definition": "NOT NULL code_hash"
+    },
+    {
+      "relation": "company_feedback.email_verification_codes",
+      "name": "email_verification_codes_created_at_not_null",
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "relation": "company_feedback.email_verification_codes",
+      "name": "email_verification_codes_expires_at_not_null",
+      "definition": "NOT NULL expires_at"
+    },
+    {
+      "relation": "company_feedback.email_verification_codes",
+      "name": "email_verification_codes_failed_attempts_check",
+      "definition": "CHECK ((failed_attempts >= 0))"
+    },
+    {
+      "relation": "company_feedback.email_verification_codes",
+      "name": "email_verification_codes_failed_attempts_not_null",
+      "definition": "NOT NULL failed_attempts"
+    },
+    {
+      "relation": "company_feedback.email_verification_codes",
+      "name": "email_verification_codes_id_not_null",
+      "definition": "NOT NULL id"
+    },
+    {
+      "relation": "company_feedback.email_verification_codes",
+      "name": "email_verification_codes_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "relation": "company_feedback.email_verification_codes",
+      "name": "email_verification_codes_user_id_fkey",
+      "definition": "FOREIGN KEY (user_id) REFERENCES company_feedback.users(id) ON DELETE CASCADE"
+    },
+    {
+      "relation": "company_feedback.email_verification_codes",
+      "name": "email_verification_codes_user_id_not_null",
+      "definition": "NOT NULL user_id"
+    },
+    {
+      "relation": "company_feedback.memberships",
+      "name": "memberships_created_at_not_null",
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "relation": "company_feedback.memberships",
+      "name": "memberships_id_not_null",
+      "definition": "NOT NULL id"
+    },
+    {
+      "relation": "company_feedback.memberships",
+      "name": "memberships_is_active_not_null",
+      "definition": "NOT NULL is_active"
+    },
+    {
+      "relation": "company_feedback.memberships",
+      "name": "memberships_organization_id_fkey",
+      "definition": "FOREIGN KEY (organization_id) REFERENCES company_feedback.organizations(id)"
+    },
+    {
+      "relation": "company_feedback.memberships",
+      "name": "memberships_organization_id_not_null",
+      "definition": "NOT NULL organization_id"
+    },
+    {
+      "relation": "company_feedback.memberships",
+      "name": "memberships_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "relation": "company_feedback.memberships",
+      "name": "memberships_role_check",
+      "definition": "CHECK (((role)::text = ANY ((ARRAY['REPRESENTATIVE'::character varying, 'ASSESSOR'::character varying])::text[])))"
+    },
+    {
+      "relation": "company_feedback.memberships",
+      "name": "memberships_role_not_null",
+      "definition": "NOT NULL role"
+    },
+    {
+      "relation": "company_feedback.memberships",
+      "name": "memberships_user_id_fkey",
+      "definition": "FOREIGN KEY (user_id) REFERENCES company_feedback.users(id)"
+    },
+    {
+      "relation": "company_feedback.memberships",
+      "name": "memberships_user_id_not_null",
+      "definition": "NOT NULL user_id"
+    },
+    {
+      "relation": "company_feedback.memberships",
+      "name": "memberships_user_id_organization_id_role_key",
+      "definition": "UNIQUE (user_id, organization_id, role)"
+    },
+    {
+      "relation": "company_feedback.notification_outbox",
+      "name": "notification_outbox_attempts_check",
+      "definition": "CHECK ((attempts >= 0))"
+    },
+    {
+      "relation": "company_feedback.notification_outbox",
+      "name": "notification_outbox_attempts_not_null",
+      "definition": "NOT NULL attempts"
+    },
+    {
+      "relation": "company_feedback.notification_outbox",
+      "name": "notification_outbox_complaint_id_fkey",
+      "definition": "FOREIGN KEY (complaint_id) REFERENCES company_feedback.complaints(id)"
+    },
+    {
+      "relation": "company_feedback.notification_outbox",
+      "name": "notification_outbox_complaint_id_not_null",
+      "definition": "NOT NULL complaint_id"
+    },
+    {
+      "relation": "company_feedback.notification_outbox",
+      "name": "notification_outbox_complaint_id_recipient_organization_id__key",
+      "definition": "UNIQUE (complaint_id, recipient_organization_id, recipient_role, event_type)"
+    },
+    {
+      "relation": "company_feedback.notification_outbox",
+      "name": "notification_outbox_created_at_not_null",
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "relation": "company_feedback.notification_outbox",
+      "name": "notification_outbox_event_type_check",
+      "definition": "CHECK (((event_type)::text = ANY ((ARRAY['REPORT_SUBMITTED'::character varying, 'RESPONSE_OVERDUE'::character varying])::text[])))"
+    },
+    {
+      "relation": "company_feedback.notification_outbox",
+      "name": "notification_outbox_event_type_not_null",
+      "definition": "NOT NULL event_type"
+    },
+    {
+      "relation": "company_feedback.notification_outbox",
+      "name": "notification_outbox_id_not_null",
+      "definition": "NOT NULL id"
+    },
+    {
+      "relation": "company_feedback.notification_outbox",
+      "name": "notification_outbox_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "relation": "company_feedback.notification_outbox",
+      "name": "notification_outbox_recipient_organization_id_fkey",
+      "definition": "FOREIGN KEY (recipient_organization_id) REFERENCES company_feedback.organizations(id)"
+    },
+    {
+      "relation": "company_feedback.notification_outbox",
+      "name": "notification_outbox_recipient_organization_id_not_null",
+      "definition": "NOT NULL recipient_organization_id"
+    },
+    {
+      "relation": "company_feedback.notification_outbox",
+      "name": "notification_outbox_recipient_role_check",
+      "definition": "CHECK (((recipient_role)::text = ANY ((ARRAY['REPRESENTATIVE'::character varying, 'ASSESSOR'::character varying])::text[])))"
+    },
+    {
+      "relation": "company_feedback.notification_outbox",
+      "name": "notification_outbox_recipient_role_not_null",
+      "definition": "NOT NULL recipient_role"
+    },
+    {
+      "relation": "company_feedback.organizations",
+      "name": "organizations_can_assess_not_null",
+      "definition": "NOT NULL can_assess"
+    },
+    {
+      "relation": "company_feedback.organizations",
+      "name": "organizations_created_at_not_null",
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "relation": "company_feedback.organizations",
+      "name": "organizations_id_not_null",
+      "definition": "NOT NULL id"
+    },
+    {
+      "relation": "company_feedback.organizations",
+      "name": "organizations_is_active_not_null",
+      "definition": "NOT NULL is_active"
+    },
+    {
+      "relation": "company_feedback.organizations",
+      "name": "organizations_name_check",
+      "definition": "CHECK ((length(btrim((name)::text)) > 0))"
+    },
+    {
+      "relation": "company_feedback.organizations",
+      "name": "organizations_name_not_null",
+      "definition": "NOT NULL name"
+    },
+    {
+      "relation": "company_feedback.organizations",
+      "name": "organizations_organization_type_check",
+      "definition": "CHECK (((organization_type)::text = ANY ((ARRAY['PRIVATE'::character varying, 'GOVERNMENT'::character varying])::text[])))"
+    },
+    {
+      "relation": "company_feedback.organizations",
+      "name": "organizations_organization_type_not_null",
+      "definition": "NOT NULL organization_type"
+    },
+    {
+      "relation": "company_feedback.organizations",
+      "name": "organizations_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "relation": "company_feedback.organizations",
+      "name": "organizations_sector_not_null",
+      "definition": "NOT NULL sector"
+    },
+    {
+      "relation": "company_feedback.organizations",
+      "name": "organizations_updated_at_not_null",
+      "definition": "NOT NULL updated_at"
+    },
+    {
+      "relation": "company_feedback.resolution_proposals",
+      "name": "resolution_proposals_check",
+      "definition": "CHECK (((confirmed_by IS NULL) = (confirmed_at IS NULL)))"
+    },
+    {
+      "relation": "company_feedback.resolution_proposals",
+      "name": "resolution_proposals_complaint_id_fkey",
+      "definition": "FOREIGN KEY (complaint_id) REFERENCES company_feedback.complaints(id)"
+    },
+    {
+      "relation": "company_feedback.resolution_proposals",
+      "name": "resolution_proposals_complaint_id_not_null",
+      "definition": "NOT NULL complaint_id"
+    },
+    {
+      "relation": "company_feedback.resolution_proposals",
+      "name": "resolution_proposals_confirmed_by_fkey",
+      "definition": "FOREIGN KEY (confirmed_by) REFERENCES company_feedback.users(id)"
+    },
+    {
+      "relation": "company_feedback.resolution_proposals",
+      "name": "resolution_proposals_description_check",
+      "definition": "CHECK ((length(btrim(description)) > 0))"
+    },
+    {
+      "relation": "company_feedback.resolution_proposals",
+      "name": "resolution_proposals_description_not_null",
+      "definition": "NOT NULL description"
+    },
+    {
+      "relation": "company_feedback.resolution_proposals",
+      "name": "resolution_proposals_id_not_null",
+      "definition": "NOT NULL id"
+    },
+    {
+      "relation": "company_feedback.resolution_proposals",
+      "name": "resolution_proposals_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "relation": "company_feedback.resolution_proposals",
+      "name": "resolution_proposals_proposed_at_not_null",
+      "definition": "NOT NULL proposed_at"
+    },
+    {
+      "relation": "company_feedback.resolution_proposals",
+      "name": "resolution_proposals_proposed_by_fkey",
+      "definition": "FOREIGN KEY (proposed_by) REFERENCES company_feedback.users(id)"
+    },
+    {
+      "relation": "company_feedback.resolution_proposals",
+      "name": "resolution_proposals_proposed_by_not_null",
+      "definition": "NOT NULL proposed_by"
+    },
+    {
+      "relation": "company_feedback.review_replies",
+      "name": "review_replies_author_id_fkey",
+      "definition": "FOREIGN KEY (author_id) REFERENCES company_feedback.users(id)"
+    },
+    {
+      "relation": "company_feedback.review_replies",
+      "name": "review_replies_author_id_not_null",
+      "definition": "NOT NULL author_id"
+    },
+    {
+      "relation": "company_feedback.review_replies",
+      "name": "review_replies_body_check",
+      "definition": "CHECK ((length(btrim(body)) > 0))"
+    },
+    {
+      "relation": "company_feedback.review_replies",
+      "name": "review_replies_body_not_null",
+      "definition": "NOT NULL body"
+    },
+    {
+      "relation": "company_feedback.review_replies",
+      "name": "review_replies_created_at_not_null",
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "relation": "company_feedback.review_replies",
+      "name": "review_replies_id_not_null",
+      "definition": "NOT NULL id"
+    },
+    {
+      "relation": "company_feedback.review_replies",
+      "name": "review_replies_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "relation": "company_feedback.review_replies",
+      "name": "review_replies_review_id_fkey",
+      "definition": "FOREIGN KEY (review_id) REFERENCES company_feedback.reviews(id)"
+    },
+    {
+      "relation": "company_feedback.review_replies",
+      "name": "review_replies_review_id_not_null",
+      "definition": "NOT NULL review_id"
+    },
+    {
+      "relation": "company_feedback.review_replies",
+      "name": "review_replies_updated_at_not_null",
+      "definition": "NOT NULL updated_at"
+    },
+    {
+      "relation": "company_feedback.reviews",
+      "name": "reviews_comment_check",
+      "definition": "CHECK ((length(btrim(comment)) > 0))"
+    },
+    {
+      "relation": "company_feedback.reviews",
+      "name": "reviews_comment_not_null",
+      "definition": "NOT NULL comment"
+    },
+    {
+      "relation": "company_feedback.reviews",
+      "name": "reviews_consumer_id_fkey",
+      "definition": "FOREIGN KEY (consumer_id) REFERENCES company_feedback.users(id)"
+    },
+    {
+      "relation": "company_feedback.reviews",
+      "name": "reviews_consumer_id_not_null",
+      "definition": "NOT NULL consumer_id"
+    },
+    {
+      "relation": "company_feedback.reviews",
+      "name": "reviews_created_at_not_null",
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "relation": "company_feedback.reviews",
+      "name": "reviews_id_not_null",
+      "definition": "NOT NULL id"
+    },
+    {
+      "relation": "company_feedback.reviews",
+      "name": "reviews_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "relation": "company_feedback.reviews",
+      "name": "reviews_service_id_fkey",
+      "definition": "FOREIGN KEY (service_id) REFERENCES company_feedback.services(id)"
+    },
+    {
+      "relation": "company_feedback.reviews",
+      "name": "reviews_service_id_not_null",
+      "definition": "NOT NULL service_id"
+    },
+    {
+      "relation": "company_feedback.reviews",
+      "name": "reviews_stars_check",
+      "definition": "CHECK (((stars >= 1) AND (stars <= 5)))"
+    },
+    {
+      "relation": "company_feedback.reviews",
+      "name": "reviews_stars_not_null",
+      "definition": "NOT NULL stars"
+    },
+    {
+      "relation": "company_feedback.reviews",
+      "name": "reviews_updated_at_not_null",
+      "definition": "NOT NULL updated_at"
+    },
+    {
+      "relation": "company_feedback.services",
+      "name": "services_created_at_not_null",
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "relation": "company_feedback.services",
+      "name": "services_id_not_null",
+      "definition": "NOT NULL id"
+    },
+    {
+      "relation": "company_feedback.services",
+      "name": "services_is_active_not_null",
+      "definition": "NOT NULL is_active"
+    },
+    {
+      "relation": "company_feedback.services",
+      "name": "services_name_check",
+      "definition": "CHECK ((length(btrim((name)::text)) > 0))"
+    },
+    {
+      "relation": "company_feedback.services",
+      "name": "services_name_not_null",
+      "definition": "NOT NULL name"
+    },
+    {
+      "relation": "company_feedback.services",
+      "name": "services_organization_id_fkey",
+      "definition": "FOREIGN KEY (organization_id) REFERENCES company_feedback.organizations(id)"
+    },
+    {
+      "relation": "company_feedback.services",
+      "name": "services_organization_id_not_null",
+      "definition": "NOT NULL organization_id"
+    },
+    {
+      "relation": "company_feedback.services",
+      "name": "services_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "relation": "company_feedback.services",
+      "name": "services_updated_at_not_null",
+      "definition": "NOT NULL updated_at"
+    },
+    {
+      "relation": "company_feedback.users",
+      "name": "users_created_at_not_null",
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "relation": "company_feedback.users",
+      "name": "users_email_check",
+      "definition": "CHECK ((((email)::text = lower(btrim((email)::text))) AND (POSITION(('@'::text) IN (email)) > 1)))"
+    },
+    {
+      "relation": "company_feedback.users",
+      "name": "users_email_not_null",
+      "definition": "NOT NULL email"
+    },
+    {
+      "relation": "company_feedback.users",
+      "name": "users_id_not_null",
+      "definition": "NOT NULL id"
+    },
+    {
+      "relation": "company_feedback.users",
+      "name": "users_is_active_not_null",
+      "definition": "NOT NULL is_active"
+    },
+    {
+      "relation": "company_feedback.users",
+      "name": "users_is_super_admin_not_null",
+      "definition": "NOT NULL is_super_admin"
+    },
+    {
+      "relation": "company_feedback.users",
+      "name": "users_password_hash_check",
+      "definition": "CHECK ((length(password_hash) > 0))"
+    },
+    {
+      "relation": "company_feedback.users",
+      "name": "users_password_hash_not_null",
+      "definition": "NOT NULL password_hash"
+    },
+    {
+      "relation": "company_feedback.users",
+      "name": "users_pkey",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "relation": "company_feedback.users",
+      "name": "users_updated_at_not_null",
+      "definition": "NOT NULL updated_at"
+    },
+    {
+      "relation": "company_feedback.users",
+      "name": "users_username_check",
+      "definition": "CHECK ((length(btrim((username)::text)) > 0))"
+    },
+    {
+      "relation": "company_feedback.users",
+      "name": "users_username_not_null",
+      "definition": "NOT NULL username"
+    }
+  ],
+  "views": [
+    {
+      "viewname": "latest_consumer_ratings",
+      "definition": " SELECT DISTINCT ON (service_id, consumer_id) id AS review_id,\n    service_id,\n    consumer_id,\n    stars,\n    created_at\n   FROM company_feedback.reviews\n  WHERE (deleted_at IS NULL)\n  ORDER BY service_id, consumer_id, created_at DESC, id DESC;"
+    },
+    {
+      "viewname": "public_reviews",
+      "definition": " SELECT r.id,\n    r.service_id,\n    r.consumer_id,\n    u.username,\n    u.profile_picture_url,\n    r.stars,\n    r.comment,\n    r.created_at,\n    r.updated_at\n   FROM (company_feedback.reviews r\n     JOIN company_feedback.users u ON ((u.id = r.consumer_id)))\n  WHERE (r.deleted_at IS NULL);"
+    },
+    {
+      "viewname": "service_rating_summary",
+      "definition": " SELECT s.id AS service_id,\n    s.organization_id,\n    s.name,\n    count(r.review_id) AS reviewer_count,\n    round(avg(r.stars), 2) AS average_rating\n   FROM (company_feedback.services s\n     LEFT JOIN company_feedback.latest_consumer_ratings r ON ((r.service_id = s.id)))\n  GROUP BY s.id, s.organization_id, s.name;"
+    }
+  ],
+  "triggers": [
+    {
+      "event_object_table": "assessor_assignments",
+      "trigger_name": "assignment_validation",
+      "action_statement": "EXECUTE FUNCTION company_feedback.validate_assignment()"
+    },
+    {
+      "event_object_table": "assessor_assignments",
+      "trigger_name": "assignment_validation",
+      "action_statement": "EXECUTE FUNCTION company_feedback.validate_assignment()"
+    },
+    {
+      "event_object_table": "complaint_attachments",
+      "trigger_name": "complaint_attachment_validation",
+      "action_statement": "EXECUTE FUNCTION company_feedback.validate_complaint_attachment()"
+    },
+    {
+      "event_object_table": "complaint_messages",
+      "trigger_name": "complaint_message_validation",
+      "action_statement": "EXECUTE FUNCTION company_feedback.validate_complaint_message()"
+    },
+    {
+      "event_object_table": "complaints",
+      "trigger_name": "complaint_notifications",
+      "action_statement": "EXECUTE FUNCTION company_feedback.queue_new_complaint()"
+    },
+    {
+      "event_object_table": "complaints",
+      "trigger_name": "complaint_preparation",
+      "action_statement": "EXECUTE FUNCTION company_feedback.prepare_complaint()"
+    },
+    {
+      "event_object_table": "complaints",
+      "trigger_name": "complaint_workflow",
+      "action_statement": "EXECUTE FUNCTION company_feedback.protect_complaint_workflow()"
+    },
+    {
+      "event_object_table": "organizations",
+      "trigger_name": "organizations_touch",
+      "action_statement": "EXECUTE FUNCTION company_feedback.touch_updated_at()"
+    },
+    {
+      "event_object_table": "resolution_proposals",
+      "trigger_name": "resolution_confirmation",
+      "action_statement": "EXECUTE FUNCTION company_feedback.apply_confirmed_resolution()"
+    },
+    {
+      "event_object_table": "resolution_proposals",
+      "trigger_name": "resolution_validation",
+      "action_statement": "EXECUTE FUNCTION company_feedback.validate_resolution_proposal()"
+    },
+    {
+      "event_object_table": "resolution_proposals",
+      "trigger_name": "resolution_validation",
+      "action_statement": "EXECUTE FUNCTION company_feedback.validate_resolution_proposal()"
+    },
+    {
+      "event_object_table": "review_replies",
+      "trigger_name": "review_reply_validation",
+      "action_statement": "EXECUTE FUNCTION company_feedback.validate_review_reply()"
+    },
+    {
+      "event_object_table": "review_replies",
+      "trigger_name": "review_reply_validation",
+      "action_statement": "EXECUTE FUNCTION company_feedback.validate_review_reply()"
+    },
+    {
+      "event_object_table": "reviews",
+      "trigger_name": "review_rules",
+      "action_statement": "EXECUTE FUNCTION company_feedback.enforce_review_rules()"
+    },
+    {
+      "event_object_table": "reviews",
+      "trigger_name": "review_rules",
+      "action_statement": "EXECUTE FUNCTION company_feedback.enforce_review_rules()"
+    },
+    {
+      "event_object_table": "services",
+      "trigger_name": "service_owner_immutable",
+      "action_statement": "EXECUTE FUNCTION company_feedback.protect_service_owner()"
+    },
+    {
+      "event_object_table": "services",
+      "trigger_name": "services_touch",
+      "action_statement": "EXECUTE FUNCTION company_feedback.touch_updated_at()"
+    },
+    {
+      "event_object_table": "users",
+      "trigger_name": "users_touch",
+      "action_statement": "EXECUTE FUNCTION company_feedback.touch_updated_at()"
+    }
+  ],
+  "functions": [
+    {
+      "name": "apply_confirmed_resolution",
+      "definition": "CREATE OR REPLACE FUNCTION company_feedback.apply_confirmed_resolution()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'company_feedback', 'pg_catalog'\nAS $function$\nBEGIN\n    IF OLD.confirmed_at IS NULL AND NEW.confirmed_at IS NOT NULL THEN\n        UPDATE complaints SET status = 'RESOLVED', resolved_at = NEW.confirmed_at\n        WHERE id = NEW.complaint_id;\n    END IF;\n    RETURN NEW;\nEND;\n$function$\n"
+    },
+    {
+      "name": "enforce_review_rules",
+      "definition": "CREATE OR REPLACE FUNCTION company_feedback.enforce_review_rules()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'company_feedback', 'pg_catalog'\nAS $function$\nDECLARE\n    v_verified timestamptz;\n    v_active boolean;\n    v_count integer;\nBEGIN\n    SELECT email_verified_at, is_active INTO v_verified, v_active\n    FROM users WHERE id = NEW.consumer_id FOR UPDATE;\n    IF NOT FOUND OR NOT v_active OR v_verified IS NULL THEN\n        RAISE EXCEPTION 'An active email-verified consumer is required';\n    END IF;\n\n    IF TG_OP = 'INSERT' THEN\n        IF NOT EXISTS (\n            SELECT 1 FROM services s JOIN organizations o ON o.id = s.organization_id\n            WHERE s.id = NEW.service_id AND s.is_active AND o.is_active\n        ) THEN\n            RAISE EXCEPTION 'Service is not active';\n        END IF;\n        NEW.created_at := statement_timestamp();\n        NEW.updated_at := NEW.created_at;\n        NEW.deleted_at := NULL;\n        SELECT count(*) INTO v_count FROM reviews\n        WHERE consumer_id = NEW.consumer_id AND service_id = NEW.service_id\n          AND deleted_at IS NULL\n          AND created_at > ((NEW.created_at AT TIME ZONE 'UTC') - interval '3 months') AT TIME ZONE 'UTC';\n        IF v_count >= 2 THEN\n            RAISE EXCEPTION 'Maximum two active reviews per service in a rolling three-month period';\n        END IF;\n    ELSE\n        IF (NEW.id, NEW.consumer_id, NEW.service_id, NEW.created_at)\n           IS DISTINCT FROM (OLD.id, OLD.consumer_id, OLD.service_id, OLD.created_at) THEN\n            RAISE EXCEPTION 'Review identity, ownership, service and creation time cannot change';\n        END IF;\n        IF OLD.deleted_at IS NOT NULL THEN\n            RAISE EXCEPTION 'A deleted review cannot be edited or restored; create a new review';\n        END IF;\n        IF NEW.deleted_at IS NOT NULL THEN\n            NEW.deleted_at := statement_timestamp();\n        END IF;\n        NEW.updated_at := statement_timestamp();\n    END IF;\n    RETURN NEW;\nEND;\n$function$\n"
+    },
+    {
+      "name": "enqueue_overdue_complaints",
+      "definition": "CREATE OR REPLACE FUNCTION company_feedback.enqueue_overdue_complaints()\n RETURNS integer\n LANGUAGE plpgsql\n SET search_path TO 'company_feedback', 'pg_catalog'\nAS $function$\nDECLARE v_count integer;\nBEGIN\n    INSERT INTO notification_outbox(complaint_id, recipient_organization_id, recipient_role, event_type)\n    SELECT c.id, recipients.org_id, recipients.role, 'RESPONSE_OVERDUE'\n    FROM complaints c\n    JOIN services s ON s.id = c.service_id\n    JOIN assessor_assignments a ON a.id = c.assignment_id\n    CROSS JOIN LATERAL (\n        VALUES (s.organization_id, 'REPRESENTATIVE'::varchar),\n               (a.authority_id, 'ASSESSOR'::varchar)\n    ) AS recipients(org_id, role)\n    WHERE c.status = 'PENDING' AND c.first_response_at IS NULL\n      AND c.response_due_at <= statement_timestamp()\n    ON CONFLICT (complaint_id, recipient_organization_id, recipient_role, event_type) DO NOTHING;\n    GET DIAGNOSTICS v_count = ROW_COUNT;\n    RETURN v_count;\nEND;\n$function$\n"
+    },
+    {
+      "name": "is_complaint_participant",
+      "definition": "CREATE OR REPLACE FUNCTION company_feedback.is_complaint_participant(p_user uuid, p_complaint uuid)\n RETURNS boolean\n LANGUAGE sql\n STABLE\n SET search_path TO 'company_feedback', 'pg_catalog'\nAS $function$\n    SELECT EXISTS (\n        SELECT 1 FROM complaints c\n        JOIN services s ON s.id = c.service_id\n        JOIN assessor_assignments a ON a.id = c.assignment_id\n        JOIN users u ON u.id = p_user AND u.is_active\n        WHERE c.id = p_complaint AND (\n            c.consumer_id = p_user\n            OR is_org_representative(p_user, s.organization_id)\n            OR EXISTS (\n                SELECT 1 FROM memberships m WHERE m.user_id = p_user\n                AND m.organization_id = a.authority_id AND m.role = 'ASSESSOR' AND m.is_active\n            )\n        )\n    );\n$function$\n"
+    },
+    {
+      "name": "is_org_representative",
+      "definition": "CREATE OR REPLACE FUNCTION company_feedback.is_org_representative(p_user uuid, p_org uuid)\n RETURNS boolean\n LANGUAGE sql\n STABLE\n SET search_path TO 'company_feedback', 'pg_catalog'\nAS $function$\n    SELECT EXISTS (\n        SELECT 1 FROM memberships m JOIN users u ON u.id = m.user_id\n        WHERE m.user_id = p_user AND m.organization_id = p_org\n          AND m.role = 'REPRESENTATIVE' AND m.is_active AND u.is_active\n    );\n$function$\n"
+    },
+    {
+      "name": "prepare_complaint",
+      "definition": "CREATE OR REPLACE FUNCTION company_feedback.prepare_complaint()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'company_feedback', 'pg_catalog'\nAS $function$\nBEGIN\n    IF NOT EXISTS (SELECT 1 FROM users WHERE id = NEW.consumer_id AND is_active AND email_verified_at IS NOT NULL) THEN\n        RAISE EXCEPTION 'An active email-verified consumer is required';\n    END IF;\n    -- Select the authority from the service owner; ignore client-supplied assignment.\n    SELECT a.id INTO NEW.assignment_id\n    FROM services s JOIN organizations o ON o.id = s.organization_id\n    JOIN assessor_assignments a ON a.organization_id = o.id AND a.ended_at IS NULL\n    JOIN organizations authority ON authority.id = a.authority_id\n    WHERE s.id = NEW.service_id AND s.is_active AND o.is_active\n      AND authority.can_assess AND authority.is_active\n    FOR SHARE OF a;\n    IF NEW.assignment_id IS NULL THEN\n        RAISE EXCEPTION 'Service must be active and its organization must have an active assessor';\n    END IF;\n    NEW.submitted_at := statement_timestamp();\n    NEW.response_due_at := NEW.submitted_at + interval '72 hours';\n    NEW.first_response_at := NULL;\n    NEW.status := 'PENDING';\n    NEW.resolved_at := NULL;\n    RETURN NEW;\nEND;\n$function$\n"
+    },
+    {
+      "name": "protect_complaint_workflow",
+      "definition": "CREATE OR REPLACE FUNCTION company_feedback.protect_complaint_workflow()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'company_feedback', 'pg_catalog'\nAS $function$\nBEGIN\n    IF (NEW.id, NEW.reference_number, NEW.consumer_id, NEW.service_id,\n        NEW.assignment_id, NEW.submitted_at, NEW.response_due_at, NEW.description)\n       IS DISTINCT FROM\n       (OLD.id, OLD.reference_number, OLD.consumer_id, OLD.service_id,\n        OLD.assignment_id, OLD.submitted_at, OLD.response_due_at, OLD.description) THEN\n        RAISE EXCEPTION 'Complaint routing, ownership, description and deadlines are immutable';\n    END IF;\n    IF OLD.first_response_at IS NOT NULL AND NEW.first_response_at IS DISTINCT FROM OLD.first_response_at THEN\n        RAISE EXCEPTION 'First response time cannot be changed after recording';\n    END IF;\n    IF (NEW.status, NEW.resolved_at) IS DISTINCT FROM (OLD.status, OLD.resolved_at) THEN\n        IF OLD.status = 'RESOLVED' OR NEW.status <> 'RESOLVED' OR NOT EXISTS (\n            SELECT 1 FROM resolution_proposals p\n            WHERE p.complaint_id = NEW.id AND p.confirmed_by = NEW.consumer_id\n              AND p.confirmed_at = NEW.resolved_at\n        ) THEN\n            RAISE EXCEPTION 'Resolution requires a consumer-confirmed proposal';\n        END IF;\n    END IF;\n    RETURN NEW;\nEND;\n$function$\n"
+    },
+    {
+      "name": "protect_service_owner",
+      "definition": "CREATE OR REPLACE FUNCTION company_feedback.protect_service_owner()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'company_feedback', 'pg_catalog'\nAS $function$\nBEGIN\n    IF NEW.organization_id IS DISTINCT FROM OLD.organization_id THEN\n        RAISE EXCEPTION 'A service cannot be transferred to another organization';\n    END IF;\n    RETURN NEW;\nEND;\n$function$\n"
+    },
+    {
+      "name": "queue_new_complaint",
+      "definition": "CREATE OR REPLACE FUNCTION company_feedback.queue_new_complaint()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'company_feedback', 'pg_catalog'\nAS $function$\nBEGIN\n    INSERT INTO notification_outbox(complaint_id, recipient_organization_id, recipient_role, event_type)\n    SELECT NEW.id, s.organization_id, 'REPRESENTATIVE', 'REPORT_SUBMITTED'\n    FROM services s WHERE s.id = NEW.service_id;\n    INSERT INTO notification_outbox(complaint_id, recipient_organization_id, recipient_role, event_type)\n    SELECT NEW.id, a.authority_id, 'ASSESSOR', 'REPORT_SUBMITTED'\n    FROM assessor_assignments a WHERE a.id = NEW.assignment_id;\n    RETURN NEW;\nEND;\n$function$\n"
+    },
+    {
+      "name": "touch_updated_at",
+      "definition": "CREATE OR REPLACE FUNCTION company_feedback.touch_updated_at()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'company_feedback', 'pg_catalog'\nAS $function$\nBEGIN\n    NEW.updated_at := statement_timestamp();\n    RETURN NEW;\nEND;\n$function$\n"
+    },
+    {
+      "name": "validate_assignment",
+      "definition": "CREATE OR REPLACE FUNCTION company_feedback.validate_assignment()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'company_feedback', 'pg_catalog'\nAS $function$\nBEGIN\n    IF TG_OP = 'UPDATE' AND\n       (NEW.organization_id, NEW.authority_id, NEW.assigned_by, NEW.assigned_at)\n       IS DISTINCT FROM\n       (OLD.organization_id, OLD.authority_id, OLD.assigned_by, OLD.assigned_at) THEN\n        RAISE EXCEPTION 'End the assignment and insert a new assignment instead';\n    END IF;\n    IF TG_OP = 'INSERT' THEN\n        IF NOT EXISTS (SELECT 1 FROM users WHERE id = NEW.assigned_by AND is_super_admin AND is_active) THEN\n            RAISE EXCEPTION 'Assignment must name an active super administrator';\n        END IF;\n        IF NOT EXISTS (SELECT 1 FROM organizations WHERE id = NEW.authority_id AND can_assess AND is_active) THEN\n            RAISE EXCEPTION 'Authority must be an active assessing organization';\n        END IF;\n        NEW.assigned_at := statement_timestamp();\n    END IF;\n    RETURN NEW;\nEND;\n$function$\n"
+    },
+    {
+      "name": "validate_complaint_attachment",
+      "definition": "CREATE OR REPLACE FUNCTION company_feedback.validate_complaint_attachment()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'company_feedback', 'pg_catalog'\nAS $function$\nBEGIN\n    IF NOT is_complaint_participant(NEW.uploaded_by, NEW.complaint_id) THEN\n        RAISE EXCEPTION 'Uploader cannot participate in this complaint';\n    END IF;\n    RETURN NEW;\nEND;\n$function$\n"
+    },
+    {
+      "name": "validate_complaint_message",
+      "definition": "CREATE OR REPLACE FUNCTION company_feedback.validate_complaint_message()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'company_feedback', 'pg_catalog'\nAS $function$\nDECLARE v_org uuid; v_status text;\nBEGIN\n    SELECT s.organization_id, c.status INTO v_org, v_status\n    FROM complaints c JOIN services s ON s.id = c.service_id\n    WHERE c.id = NEW.complaint_id FOR UPDATE OF c;\n    IF NOT FOUND OR v_status <> 'PENDING' THEN\n        RAISE EXCEPTION 'Complaint must exist and be pending';\n    END IF;\n    IF NOT is_complaint_participant(NEW.author_id, NEW.complaint_id) THEN\n        RAISE EXCEPTION 'Author cannot participate in this complaint';\n    END IF;\n    NEW.created_at := statement_timestamp();\n    IF is_org_representative(NEW.author_id, v_org) THEN\n        UPDATE complaints SET first_response_at = coalesce(first_response_at, NEW.created_at)\n        WHERE id = NEW.complaint_id;\n    END IF;\n    RETURN NEW;\nEND;\n$function$\n"
+    },
+    {
+      "name": "validate_resolution_proposal",
+      "definition": "CREATE OR REPLACE FUNCTION company_feedback.validate_resolution_proposal()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'company_feedback', 'pg_catalog'\nAS $function$\nDECLARE v_consumer uuid; v_org uuid; v_status text;\nBEGIN\n    SELECT c.consumer_id, s.organization_id, c.status\n    INTO v_consumer, v_org, v_status\n    FROM complaints c JOIN services s ON s.id = c.service_id\n    WHERE c.id = NEW.complaint_id FOR UPDATE OF c;\n    IF NOT FOUND OR v_status <> 'PENDING' THEN\n        RAISE EXCEPTION 'Complaint must exist and be pending';\n    END IF;\n    IF TG_OP = 'INSERT' THEN\n        IF NOT is_org_representative(NEW.proposed_by, v_org) THEN\n            RAISE EXCEPTION 'Only the organization can propose a resolution';\n        END IF;\n        NEW.proposed_at := statement_timestamp();\n        NEW.confirmed_at := NULL;\n        NEW.confirmed_by := NULL;\n        UPDATE complaints SET first_response_at = coalesce(first_response_at, NEW.proposed_at)\n        WHERE id = NEW.complaint_id;\n    ELSE\n        IF (NEW.id, NEW.complaint_id, NEW.proposed_by, NEW.description, NEW.proposed_at)\n           IS DISTINCT FROM (OLD.id, OLD.complaint_id, OLD.proposed_by, OLD.description, OLD.proposed_at) THEN\n            RAISE EXCEPTION 'Proposals are immutable; submit a new proposal';\n        END IF;\n        IF OLD.confirmed_at IS NOT NULL OR NEW.confirmed_by IS DISTINCT FROM v_consumer THEN\n            RAISE EXCEPTION 'Only the complaint consumer can confirm an unconfirmed proposal';\n        END IF;\n        IF NOT EXISTS (SELECT 1 FROM users WHERE id = v_consumer AND is_active AND email_verified_at IS NOT NULL) THEN\n            RAISE EXCEPTION 'Consumer must be active and verified';\n        END IF;\n        NEW.confirmed_at := statement_timestamp();\n    END IF;\n    RETURN NEW;\nEND;\n$function$\n"
+    },
+    {
+      "name": "validate_review_reply",
+      "definition": "CREATE OR REPLACE FUNCTION company_feedback.validate_review_reply()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'company_feedback', 'pg_catalog'\nAS $function$\nBEGIN\n    IF TG_OP = 'UPDATE' AND (NEW.id, NEW.review_id, NEW.author_id, NEW.created_at)\n       IS DISTINCT FROM (OLD.id, OLD.review_id, OLD.author_id, OLD.created_at) THEN\n        RAISE EXCEPTION 'Reply ownership and identity cannot change';\n    END IF;\n    IF NOT EXISTS (\n        SELECT 1 FROM reviews r\n        JOIN services s ON s.id = r.service_id\n        JOIN memberships m ON m.organization_id = s.organization_id\n        JOIN users u ON u.id = m.user_id\n        WHERE r.id = NEW.review_id AND r.deleted_at IS NULL\n          AND m.user_id = NEW.author_id AND m.role = 'REPRESENTATIVE'\n          AND m.is_active AND u.is_active\n    ) THEN\n        RAISE EXCEPTION 'Reply author must represent the reviewed organization';\n    END IF;\n    NEW.updated_at := statement_timestamp();\n    RETURN NEW;\nEND;\n$function$\n"
+    }
+  ]
+}
