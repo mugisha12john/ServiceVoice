@@ -4,6 +4,7 @@ import { adminOverview } from "@/lib/services/admin";
 import { PageTitle, Notice, Badge, EmptyState } from "@/components/ui";
 import { Denied, StatCards } from "@/components/workspace";
 import { ApiForm, ActionButton, type FormField } from "@/components/forms";
+import { MembershipForm } from "@/components/membership-form";
 const organizationFields: FormField[] = [
   {
     name: "name",
@@ -33,6 +34,7 @@ const organizationFields: FormField[] = [
     name: "canAssess",
     label: "This organization is an assessing authority",
     type: "checkbox",
+    hint: "Enable assessor memberships and allow this organization to inspect other service providers.",
   },
   {
     name: "description",
@@ -58,9 +60,12 @@ export default async function AdminPage({
   const data = await adminOverview(u),
     p = await searchParams,
     tab = p.tab || "overview",
-    orgOptions = data.organizations
-      .filter((o) => o.is_active)
-      .map((o) => ({ value: o.id, label: o.name })),
+    registerAuthority = p.register === "authority",
+    activeOrganizations = data.organizations.filter((o) => o.is_active),
+    orgOptions = activeOrganizations.map((o) => ({
+      value: o.id,
+      label: o.name,
+    })),
     userOptions = data.users
       .filter((u) => u.is_active)
       .map((u) => ({ value: u.id, label: `${u.username} · ${u.email}` }));
@@ -82,11 +87,21 @@ export default async function AdminPage({
                     : "Administration overview"
         }
         description="Manage the registry, staff access, assessment coverage, and public feedback."
+        action={
+          (tab === "organizations" || tab === "staff") && (
+            <Link
+              className="button small"
+              href="/workspace/admin?tab=organizations&register=authority#register-organization"
+            >
+              Register an assessing authority
+            </Link>
+          )
+        }
       />
       <nav className="tabs" aria-label="Administration sections">
         {[
           ["overview", "Overview"],
-          ["organizations", "Organizations"],
+          ["organizations", "Organizations & authorities"],
           ["staff", "Staff & memberships"],
           ["assignments", "Assignments"],
           ["access", "Access"],
@@ -220,16 +235,39 @@ export default async function AdminPage({
               />
             )}
           </section>
-          <section className="card">
-            <h2>Register an organization</h2>
+          <section className="card" id="register-organization">
+            <h2>
+              {registerAuthority
+                ? "Register an assessing authority"
+                : "Register an organization"}
+            </h2>
             <p className="muted">
-              An assessing authority can be a private or government organization
-              with assessment enabled.
+              {registerAuthority
+                ? "Register the organization that will inspect service providers. Assessment is enabled below; after registration, assign its assessor accounts."
+                : "Register a company or institution. To create an assessing authority, enable the assessment checkbox below. An authority can be private or government."}
             </p>
             <ApiForm
+              key={
+                registerAuthority
+                  ? "authority-registration"
+                  : "organization-registration"
+              }
               endpoint="/api/v1/admin/organizations"
-              submitLabel="Register organization"
-              defaults={{ isActive: true, organizationType: "PRIVATE" }}
+              submitLabel={
+                registerAuthority
+                  ? "Register assessing authority"
+                  : "Register organization"
+              }
+              defaults={{
+                isActive: true,
+                organizationType: "PRIVATE",
+                canAssess: registerAuthority,
+              }}
+              redirectTo={
+                registerAuthority
+                  ? "/workspace/admin?tab=staff&role=ASSESSOR&authorityId={id}"
+                  : undefined
+              }
               fields={organizationFields}
             />
           </section>
@@ -237,6 +275,37 @@ export default async function AdminPage({
       )}
       {tab === "staff" && (
         <>
+          <section className="card mb-6">
+            <h2>Set up an assessor</h2>
+            <ol className="list-decimal pl-5 space-y-2 muted">
+              <li>
+                <Link
+                  className="text-link"
+                  href="/workspace/admin?tab=organizations&register=authority#register-organization"
+                >
+                  Register an assessing authority
+                </Link>
+                : the organization that will inspect companies. You can also
+                enable assessment in an existing organization’s registration
+                details.
+              </li>
+              <li>
+                Create or select an active account. Choose{" "}
+                <strong>Assessor</strong> below and select the authority they
+                work for.
+              </li>
+              <li>
+                Open{" "}
+                <Link
+                  className="text-link"
+                  href="/workspace/admin?tab=assignments"
+                >
+                  Assessor assignments
+                </Link>{" "}
+                to select the company that authority will inspect.
+              </li>
+            </ol>
+          </section>
           <div className="management-grid">
             <section className="card">
               <h2>Create a staff account</h2>
@@ -280,41 +349,21 @@ export default async function AdminPage({
             <section className="card">
               <h2>Assign a membership</h2>
               <p className="muted">
-                Assessors must belong to an active organization with assessment
-                enabled.
+                Choose a role first. Assessors can only join active assessing
+                authorities; representatives join the organization they
+                represent.
               </p>
-              <ApiForm
-                endpoint="/api/v1/admin/memberships"
-                submitLabel="Assign membership"
-                fields={[
-                  {
-                    name: "userId",
-                    label: "Account",
-                    type: "select",
-                    required: true,
-                    options: userOptions,
-                  },
-                  {
-                    name: "organizationId",
-                    label: "Organization",
-                    type: "select",
-                    required: true,
-                    options: orgOptions,
-                  },
-                  {
-                    name: "role",
-                    label: "Role",
-                    type: "select",
-                    required: true,
-                    options: [
-                      {
-                        value: "REPRESENTATIVE",
-                        label: "Organization representative",
-                      },
-                      { value: "ASSESSOR", label: "Assessor" },
-                    ],
-                  },
-                ]}
+              <MembershipForm
+                accounts={userOptions}
+                organizations={activeOrganizations.map((o) => ({
+                  id: o.id,
+                  name: o.name,
+                  can_assess: o.can_assess,
+                }))}
+                defaultRole={
+                  p.role === "ASSESSOR" ? "ASSESSOR" : "REPRESENTATIVE"
+                }
+                defaultOrganizationId={p.authorityId}
               />
             </section>
           </div>
@@ -396,9 +445,19 @@ export default async function AdminPage({
           <section className="card">
             <h2>Assign an authority</h2>
             <p className="muted">
-              An existing current assignment is ended before creating the new
-              one. Historical assignments are kept.
+              Select the company to inspect and the authority whose assessors
+              will handle its complaints. An existing current assignment is
+              ended; historical assignments are kept.
             </p>
+            {!activeOrganizations.some((o) => o.can_assess) && (
+              <Notice>
+                No active assessing authorities are registered.{" "}
+                <Link href="/workspace/admin?tab=organizations&register=authority#register-organization">
+                  Register an assessing authority
+                </Link>{" "}
+                first, then assign its assessors under Staff &amp; memberships.
+              </Notice>
+            )}
             <ApiForm
               endpoint="/api/v1/admin/assessor-assignments"
               submitLabel="Assign authority"

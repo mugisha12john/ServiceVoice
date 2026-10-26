@@ -123,15 +123,30 @@ export async function createMembership(u: Viewer, raw: unknown) {
   const org = await one<{ can_assess: boolean; is_active: boolean }>(
     sql`SELECT can_assess,is_active FROM company_feedback.organizations WHERE id=${i.organizationId}`,
   );
-  if (!org?.is_active || (i.role === "ASSESSOR" && !org.can_assess))
+  if (!org)
+    throw new AppError(
+      404,
+      "Organization not found. Refresh and select an existing organization.",
+    );
+  if (!org.is_active)
     throw new AppError(
       400,
-      "Assessors must belong to an active assessing authority; representatives need an active organization.",
+      "This organization is inactive. Activate it under Administration → Organizations before assigning a membership.",
+    );
+  if (i.role === "ASSESSOR" && !org.can_assess)
+    throw new AppError(
+      400,
+      "An assessor must join an assessing authority. Register one under Administration → Organizations, then select it here. Choose the authority they work for, rather than the company they will inspect.",
     );
   await query(
     sql`INSERT INTO company_feedback.memberships(user_id,organization_id,role) VALUES (${i.userId},${i.organizationId},${i.role}) ON CONFLICT (user_id,organization_id,role) DO UPDATE SET is_active=true`,
   );
-  return { message: "Membership assigned." };
+  return {
+    message:
+      i.role === "ASSESSOR"
+        ? "Assessor membership assigned. Use Assessor assignments to choose which organizations this authority inspects."
+        : "Representative membership assigned.",
+  };
 }
 export async function setMembershipAccess(u: Viewer, id: string, raw: unknown) {
   requireAdmin(u);
