@@ -33,6 +33,6 @@ export async function assignedOrganizations(u: Viewer) {
 }
 export async function organizationReviews(u: Viewer, page = 1) {
   return query<Review>(
-    sql`SELECT r.*,s.organization_id,s.name AS service_name,o.name AS organization_name,coalesce((SELECT json_agg(json_build_object('id',p.id,'body',p.body,'username',author.username,'created_at',p.created_at) ORDER BY p.created_at) FROM company_feedback.review_replies p JOIN company_feedback.users author ON author.id=p.author_id WHERE p.review_id=r.id),'[]'::json) AS replies FROM company_feedback.public_reviews r JOIN company_feedback.services s ON s.id=r.service_id JOIN company_feedback.organizations o ON o.id=s.organization_id WHERE company_feedback.is_org_representative(${u.id}::uuid,o.id) ORDER BY r.created_at DESC,r.id DESC LIMIT 50 OFFSET ${(page - 1) * 50}`,
+    sql`SELECT r.*,s.organization_id,s.name AS service_name,o.name AS organization_name,coalesce((SELECT json_agg(json_build_object('id',p.id,'body',p.body,'organization_name',o.name,'created_at',p.created_at) ORDER BY p.created_at,p.id) FROM company_feedback.review_replies p WHERE p.review_id=r.id),'[]'::json) AS replies FROM company_feedback.public_reviews r JOIN company_feedback.services s ON s.id=r.service_id JOIN company_feedback.organizations o ON o.id=s.organization_id WHERE company_feedback.is_org_representative(${u.id}::uuid,o.id) ORDER BY r.created_at DESC,r.id DESC LIMIT 50 OFFSET ${(page - 1) * 50}`,
   );
 }

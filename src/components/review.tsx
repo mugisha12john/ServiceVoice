@@ -51,7 +51,7 @@ export function ReviewCard({
       {r.replies.map((reply) => (
         <div className="review-reply" key={reply.id}>
           <h4>
-            {reply.username}
+            {reply.organization_name}
             <Badge tone="green">Organization reply</Badge>
           </h4>
           <p>{reply.body}</p>

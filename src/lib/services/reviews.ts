@@ -8,7 +8,7 @@ import { rateLimit } from "../security";
 export type Reply = {
   id: string;
   body: string;
-  username: string;
+  organization_name: string;
   created_at: string;
 };
 export type Review = {
@@ -39,7 +39,7 @@ export async function publicServiceReviews(
         ? sql`r.stars ASC,r.created_at DESC,r.id DESC`
         : sql`r.created_at DESC,r.id DESC`;
   return query<Review>(
-    sql`SELECT r.*,coalesce((SELECT json_agg(json_build_object('id',p.id,'body',p.body,'username',u.username,'created_at',p.created_at) ORDER BY p.created_at,p.id) FROM company_feedback.review_replies p JOIN company_feedback.users u ON u.id=p.author_id WHERE p.review_id=r.id AND NOT EXISTS(SELECT 1 FROM company_feedback.public_content_reports f WHERE f.reply_id=p.id AND f.status='HIDDEN')),'[]'::json) AS replies FROM company_feedback.public_reviews r WHERE r.service_id=${id} AND (${stars || 0}=0 OR r.stars=${stars || 0}) AND NOT EXISTS(SELECT 1 FROM company_feedback.public_content_reports f WHERE f.review_id=r.id AND f.status='HIDDEN') ORDER BY ${order} LIMIT 20 OFFSET ${(Math.max(1, page) - 1) * 20}`,
+    sql`SELECT r.*,coalesce((SELECT json_agg(json_build_object('id',p.id,'body',p.body,'organization_name',o.name,'created_at',p.created_at) ORDER BY p.created_at,p.id) FROM company_feedback.review_replies p WHERE p.review_id=r.id AND NOT EXISTS(SELECT 1 FROM company_feedback.public_content_reports f WHERE f.reply_id=p.id AND f.status='HIDDEN')),'[]'::json) AS replies FROM company_feedback.public_reviews r JOIN company_feedback.services s ON s.id=r.service_id JOIN company_feedback.organizations o ON o.id=s.organization_id WHERE r.service_id=${id} AND (${stars || 0}=0 OR r.stars=${stars || 0}) AND NOT EXISTS(SELECT 1 FROM company_feedback.public_content_reports f WHERE f.review_id=r.id AND f.status='HIDDEN') ORDER BY ${order} LIMIT 20 OFFSET ${(Math.max(1, page) - 1) * 20}`,
   );
 }
 export async function createReview(u: Viewer, serviceId: string, raw: unknown) {
