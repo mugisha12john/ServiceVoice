@@ -55,6 +55,10 @@ Then use **Administration → Organizations**, **Staff & memberships**, and **As
 
 The bootstrap refuses additional administrators. Further administrator grants, account recovery, and emergency administrator recovery require a deliberate operator procedure rather than a public endpoint. Never share an administrator account.
 
+To add an assessor, open **Administration → Staff & memberships** and follow **Set up an assessor**. First use **Register an assessing authority** to register the organization they work for, with assessment enabled and active status selected. The form then opens assessor membership with the new authority selected. Choose the assessor's existing account, or create a staff account first. Finally open **Assessor assignments** and choose the service company that authority will inspect. An assessor joins the authority, rather than the company being inspected. The role selector only lists active authorities for assessor memberships, and explains how to register one when none exist. For an existing authority, open **Organizations & authorities → Edit registration details** to enable its assessment checkbox.
+
+Public review replies display the service organization's name and the **Organization reply** badge. The representative's author ID remains recorded internally for authorization and accountability; their personal username is not used as the public reply heading.
+
 ## Email
 
 Configure an authenticated SMTP provider using the server-only `SMTP_*` and `EMAIL_FROM` variables. Use port 587 with required STARTTLS (`SMTP_SECURE=false`, `SMTP_REQUIRE_TLS=true`) or port 465 with TLS (`SMTP_SECURE=true`). Verify the sender domain with your provider and its SPF/DKIM settings. Disable TLS requirements only for an isolated local SMTP test server.

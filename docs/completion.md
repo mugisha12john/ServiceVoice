@@ -9,6 +9,7 @@
 - Review allowance/latest-rating/deletion behavior; private complaint routing/discussions/evidence; 72-hour first organization response; immutable proposals and consumer confirmation.
 - Private S3-compatible or explicitly configured development-local storage, protected downloads, type/signature/size limits, SMTP delivery, overdue/outbox worker, retry/error handling, optional deployment schedule example.
 - Explicit additive migration, secure first-admin bootstrap, environment placeholders, setup/deployment/API/decision documentation, unit and isolated full-system tests.
+- Guided authority registration, assessor-specific membership choices and empty states, preserved failed selections, and a tested registration → membership → inspection-coverage flow. Review replies display the service organization's name with the existing Organization reply label.
 
 ## Configuration remaining
 
@@ -24,23 +25,26 @@ The [deployment guide](deployment.md) covers Render and Vercel, including the pe
 
 ## Verification
 
-Completed on 21 October 2026:
+Build, type, lint, unit, system, and browser checks refreshed on 28 October 2026. Earlier live login/migration, provider, audit, and bootstrap/scheduler results below retain their 21 October verification dates.
 
-| Check                              | Result                                                                                                                                            |
-| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Production build                   | Passed, Next.js 16.4.2                                                                                                                            |
-| TypeScript check                   | Passed                                                                                                                                            |
-| ESLint                             | Passed, no warnings                                                                                                                               |
-| Unit tests                         | 17 passed                                                                                                                                         |
-| Isolated full-system checks        | 36 passed                                                                                                                                         |
-| Browser checks                     | 24 page/viewport combinations, 1440px desktop and 390px phone; no document overflow or serious/critical axe violations                            |
-| Keyboard and failed-input behavior | Skip navigation and failed form input preservation passed                                                                                         |
-| Live Neon integration              | Public directory and login passed; unauthenticated profile API returned 401                                                                       |
-| Original Neon schema objects       | Original columns, functions, and views confirmed unchanged after migration                                                                        |
-| Credential scan                    | No configured database/auth/job secrets in source, docs, examples, or browser bundles                                                             |
-| Production dependency audit        | Zero vulnerabilities                                                                                                                              |
-| Administrator bootstrap            | Confirmed existing-admin guard on Neon; duplicate-account, disabled-admin, password hashing, and concurrency checks passed in isolated PostgreSQL |
-| Scheduler runner                   | Local HTTP fixture verified success, failure redaction, redirect refusal, and missing configuration; no real worker invoked                       |
+| Check                                | Result                                                                                                                                                                           |
+| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Production build                     | Passed, Next.js 16.4.2                                                                                                                                                           |
+| TypeScript check                     | Passed                                                                                                                                                                           |
+| ESLint                               | Passed, no warnings                                                                                                                                                              |
+| Unit tests                           | 17 passed                                                                                                                                                                        |
+| Isolated full-system checks          | 41 passed                                                                                                                                                                        |
+| Browser checks                       | 26 audited page/viewport combinations, 1440px desktop and 390px phone; no document overflow or serious/critical axe violations; authority setup and reply names checked visually |
+| Keyboard and failed-input behavior   | Skip navigation and failed form input preservation passed                                                                                                                        |
+| Live Neon integration                | Public directory and login passed; unauthenticated profile API returned 401                                                                                                      |
+| Original Neon schema objects         | Original columns, functions, and views confirmed unchanged after migration                                                                                                       |
+| Credential scan                      | No configured database/auth/job secrets in source, docs, examples, or browser bundles                                                                                            |
+| Production dependency audit          | Zero vulnerabilities                                                                                                                                                             |
+| Administrator bootstrap              | Confirmed existing-admin guard on Neon; duplicate-account, disabled-admin, password hashing, and concurrency checks passed in isolated PostgreSQL                                |
+| Scheduler runner                     | Local HTTP fixture verified success, failure redaction, redirect refusal, and missing configuration; no real worker invoked                                                      |
+| Assessor setup and reply attribution | Direct invalid memberships rejected; authority registration, assessor membership, coverage assignment, empty state, failed selections, and organization reply names passed       |
+
+A read-only diagnostic on 28 October confirmed that the selected organization was active without assessment enabled and that no active authorities were registered. The application now explains the required setup. No live organization was automatically converted into an authority or assigned staff during this fix. See `docs/verification/assessor-setup-result.json` for the focused results.
 
 Full-system checks use a disposable local PostgreSQL cluster, a local SMTP server, and private local file storage; they never write fixtures to Neon. They cover registration/verification, attempt/resend/expiry limits, server sessions and role restrictions, ownership, concurrent rating limits, UTC calendar windows, latest-rating fallback/deletion, private complaint/evidence access, automatic routing, 72-hour timing, first-response tracking, outbox failure/backoff/deduplication, assignment history, consumer-only confirmation, moderation, and immediate membership/account revocation. Temporary test services and the read-only live smoke server were stopped.
 

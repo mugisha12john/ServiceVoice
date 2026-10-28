@@ -1,7 +1,7 @@
 {
-  "checkedAt": "2026-10-21T15:29:25.294Z",
+  "checkedAt": "2026-10-28T08:27:51.171Z",
   "database": "disposable local PostgreSQL",
-  "passed": 36,
+  "passed": 41,
   "productionDataTouched": false,
   "artifacts": "artifacts/",
   "externalEmailProviderTested": false,

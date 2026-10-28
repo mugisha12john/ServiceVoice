@@ -484,6 +484,112 @@ async function main() {
     c = await login("fictional_consumer_c"),
     outsider = await login("fictional_outsider");
   await check(
+    "Assessors cannot join ordinary organizations or inactive authorities",
+    async () => {
+      const invalid = await api(
+        admin,
+        "/admin/memberships",
+        "POST",
+        { userId: outsiderId, organizationId: orgId, role: "ASSESSOR" },
+        400,
+      );
+      assert.match(invalid.error, /Register one under Administration/);
+      await api(
+        consumer,
+        "/admin/memberships",
+        "POST",
+        { userId: consumerId, organizationId: authorityId, role: "ASSESSOR" },
+        403,
+      );
+      await api(admin, `/admin/organizations/${authority2Id}`, "PATCH", {
+        isActive: false,
+      });
+      const inactive = await api(
+        admin,
+        "/admin/memberships",
+        "POST",
+        { userId: outsiderId, organizationId: authority2Id, role: "ASSESSOR" },
+        400,
+      );
+      assert.match(inactive.error, /inactive/);
+      await api(admin, `/admin/organizations/${authority2Id}`, "PATCH", {
+        isActive: true,
+      });
+      const count = await client!.query(
+        "SELECT count(*)::int AS count FROM company_feedback.memberships WHERE user_id=$1",
+        [outsiderId],
+      );
+      assert.equal(count.rows[0].count, 0);
+    },
+  );
+  await check(
+    "Administrator registers an authority and assigns its assessor and inspection coverage",
+    async () => {
+      const authority = await api(
+        admin,
+        "/admin/organizations",
+        "POST",
+        {
+          name: "Fictional New Assessment Office",
+          sector: "Oversight",
+          organizationType: "GOVERNMENT",
+          canAssess: true,
+        },
+        201,
+      );
+      const provider = await api(
+        admin,
+        "/admin/organizations",
+        "POST",
+        {
+          name: "Fictional Supervised Provider",
+          sector: "Testing",
+          organizationType: "PRIVATE",
+        },
+        201,
+      );
+      const staff = await api(
+        admin,
+        "/admin/staff-accounts",
+        "POST",
+        {
+          username: "fictional_new_assessor",
+          email: "fictional_new_assessor@example.test",
+          password: testPassword,
+        },
+        201,
+      );
+      await api(
+        admin,
+        "/admin/memberships",
+        "POST",
+        { userId: staff.id, organizationId: authority.id, role: "ASSESSOR" },
+        201,
+      );
+      await api(
+        admin,
+        "/admin/assessor-assignments",
+        "POST",
+        { organizationId: provider.id, authorityId: authority.id },
+        201,
+      );
+      const account = await login("fictional_new_assessor");
+      const viewer = await api(account, "/me");
+      assert.ok(
+        viewer.memberships.some(
+          (membership: { organization_id: string; role: string }) =>
+            membership.organization_id === authority.id &&
+            membership.role === "ASSESSOR",
+        ),
+      );
+      const assignment = await client!.query(
+        "SELECT authority_id FROM company_feedback.assessor_assignments WHERE organization_id=$1 AND ended_at IS NULL",
+        [provider.id],
+      );
+      assert.equal(assignment.rows[0].authority_id, authority.id);
+    },
+  );
+  await check(
     "API rejects cross-origin changes, consumer administration, and unrelated service ownership",
     async () => {
       const r = await consumer.post(`${base}/api/v1/me`, {
@@ -667,9 +773,25 @@ async function main() {
       const serialized = JSON.stringify(reviews);
       assert.ok(!serialized.includes("@example.test"));
       assert.ok(!serialized.includes("password_hash"));
-      assert.ok(
-        reviews.find((r: { id: string }) => r.id === firstReview).replies
-          .length,
+      const reply = reviews.find((r: { id: string }) => r.id === firstReview)
+        .replies[0];
+      assert.equal(reply.organization_name, "Fictional Kivu Services");
+      assert.equal(
+        reply.body,
+        "Thank you. We have noted the connection issue.",
+      );
+      assert.equal("username" in reply, false);
+      // Keep a reply visible after the later moderation check hides firstReview.
+      const visibleReview = reviews.find(
+        (r: { id: string }) => r.id !== firstReview,
+      );
+      assert.ok(visibleReview);
+      await api(
+        rep,
+        `/reviews/${visibleReview.id}/replies`,
+        "POST",
+        { body: "Thank you for sharing your feedback with our organization." },
+        201,
       );
     },
   );
@@ -1323,6 +1445,22 @@ async function browserChecks(input: {
           ]) {
             await page.goto(base + path, { waitUntil: "networkidle" });
             assert.ok(await page.locator("h1,h2").count());
+            if (label === "service") {
+              const reply = page.locator(".review-reply").first();
+              assert.match(
+                await reply.locator("h4").innerText(),
+                /Fictional Kivu Services/,
+              );
+              assert.match(
+                await reply.locator("h4").innerText(),
+                /Organization reply/,
+              );
+              assert.ok(
+                !(await reply.locator("h4").innerText()).includes(
+                  "fictional_rep",
+                ),
+              );
+            }
             assert.equal(
               await page.evaluate(
                 () => document.documentElement.scrollWidth <= window.innerWidth,
@@ -1421,6 +1559,248 @@ async function browserChecks(input: {
             });
             await context.close();
           }
+        }
+      },
+    );
+    await check(
+      "Assessor membership filters authorities and preserves selections after failure",
+      async () => {
+        for (const width of [1440, 390]) {
+          const context = await browser.newContext({
+            storageState: await input.admin.storageState(),
+            viewport: { width, height: 1000 },
+          });
+          try {
+            const page = await context.newPage();
+            await page.goto(base + "/workspace/admin?tab=staff", {
+              waitUntil: "networkidle",
+            });
+            const role = page.getByRole("combobox", { name: /^Role/ }),
+              account = page.getByRole("combobox", { name: /^Account/ });
+            await account.selectOption({
+              label: "fictional_outsider · fictional_outsider@example.test",
+            });
+            const accountId = await account.inputValue();
+            await page
+              .getByRole("combobox", { name: /^Organization/ })
+              .selectOption({ label: "Fictional Kivu Services" });
+            await role.selectOption("ASSESSOR");
+            const authority = page.getByRole("combobox", {
+              name: /^Assessing authority/,
+            });
+            assert.equal(await account.inputValue(), accountId);
+            assert.equal(await authority.inputValue(), "");
+            assert.equal(
+              await authority
+                .getByRole("option", {
+                  name: "Fictional Kivu Services",
+                  exact: true,
+                })
+                .count(),
+              0,
+            );
+            await authority.selectOption({
+              label: "Fictional Assessment Office",
+            });
+            const authorityId = await authority.inputValue();
+            await page.route("**/api/v1/admin/memberships", (route) =>
+              route.fulfill({
+                status: 400,
+                contentType: "application/json",
+                body: JSON.stringify({
+                  error: "Fixture: the authority changed. Refresh and retry.",
+                }),
+              }),
+            );
+            await page
+              .getByRole("button", { name: "Assign membership", exact: true })
+              .click();
+            await page
+              .getByRole("alert")
+              .filter({ hasText: "Fixture: the authority changed" })
+              .waitFor();
+            assert.equal(await account.inputValue(), accountId);
+            assert.equal(await authority.inputValue(), authorityId);
+            assert.equal(await role.inputValue(), "ASSESSOR");
+            assert.equal(
+              await page.evaluate(
+                () => document.documentElement.scrollWidth <= window.innerWidth,
+              ),
+              true,
+            );
+            const result = await new AxeBuilder({ page })
+              .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+              .analyze();
+            assert.deepEqual(
+              result.violations
+                .filter((v) => ["critical", "serious"].includes(v.impact || ""))
+                .map((v) => v.id),
+              [],
+            );
+            await page.screenshot({
+              path: `artifacts/assessor-membership-${width}.png`,
+              fullPage: true,
+            });
+            await page
+              .locator("section")
+              .filter({ has: role })
+              .screenshot({
+                path: `artifacts/assessor-membership-card-${width}.png`,
+              });
+          } finally {
+            await context.close();
+          }
+        }
+      },
+    );
+    await check(
+      "Empty authority setup links to registration and blocks invalid membership",
+      async () => {
+        const active = await client!.query(
+          "SELECT id FROM company_feedback.organizations WHERE can_assess AND is_active",
+        );
+        const ids = active.rows.map((row) => row.id);
+        const context = await browser.newContext({
+          storageState: await input.admin.storageState(),
+          viewport: { width: 390, height: 1000 },
+        });
+        try {
+          await client!.query(
+            "UPDATE company_feedback.organizations SET is_active=false WHERE id=ANY($1::uuid[])",
+            [ids],
+          );
+          const page = await context.newPage();
+          await page.goto(base + "/workspace/admin?tab=staff&role=ASSESSOR", {
+            waitUntil: "networkidle",
+          });
+          assert.equal(
+            await page
+              .getByText("No active assessing authorities yet", { exact: true })
+              .count(),
+            1,
+          );
+          assert.equal(
+            await page
+              .getByRole("button", { name: "Assign membership", exact: true })
+              .isDisabled(),
+            true,
+          );
+          const empty = page
+            .getByRole("status")
+            .filter({ hasText: "No active assessing authorities yet" });
+          await empty
+            .getByRole("link", {
+              name: "Register an assessing authority",
+              exact: true,
+            })
+            .click();
+          await page.waitForURL(/register=authority/);
+          const form = page.locator("#register-organization");
+          assert.equal(
+            await form
+              .getByRole("checkbox", {
+                name: "This organization is an assessing authority",
+              })
+              .isChecked(),
+            true,
+          );
+          assert.equal(
+            await form
+              .getByRole("checkbox", { name: "Organization is active" })
+              .isChecked(),
+            true,
+          );
+          await form.screenshot({
+            path: "artifacts/authority-registration-390.png",
+          });
+        } finally {
+          await client!.query(
+            "UPDATE company_feedback.organizations SET is_active=true WHERE id=ANY($1::uuid[])",
+            [ids],
+          );
+          await context.close();
+        }
+      },
+    );
+    await check(
+      "Authority registration leads to assessor membership and company coverage",
+      async () => {
+        const context = await browser.newContext({
+          storageState: await input.admin.storageState(),
+          viewport: { width: 1440, height: 1000 },
+        });
+        try {
+          const page = await context.newPage();
+          await page.goto(
+            base +
+              "/workspace/admin?tab=organizations&register=authority#register-organization",
+            { waitUntil: "networkidle" },
+          );
+          const form = page.locator("#register-organization");
+          await form
+            .getByLabel(/^Organization name/)
+            .fill("Fictional Browser Assessment Office");
+          await form.getByLabel(/^Sector/).fill("Consumer services oversight");
+          await form
+            .getByRole("button", {
+              name: "Register assessing authority",
+              exact: true,
+            })
+            .click();
+          await page.waitForURL(/tab=staff&role=ASSESSOR&authorityId=/);
+          const authorityId = new URL(page.url()).searchParams.get(
+            "authorityId",
+          );
+          assert.ok(authorityId);
+          assert.equal(
+            await page.getByRole("combobox", { name: /^Role/ }).inputValue(),
+            "ASSESSOR",
+          );
+          assert.equal(
+            await page
+              .getByRole("combobox", { name: /^Assessing authority/ })
+              .inputValue(),
+            authorityId,
+          );
+          await page.getByRole("combobox", { name: /^Account/ }).selectOption({
+            label:
+              "fictional_new_assessor · fictional_new_assessor@example.test",
+          });
+          await page
+            .getByRole("button", { name: "Assign membership", exact: true })
+            .click();
+          await page
+            .getByRole("status")
+            .filter({ hasText: "Assessor membership assigned" })
+            .waitFor();
+          await page
+            .getByRole("link", {
+              name: "Next: assign this authority to an organization",
+            })
+            .click();
+          await page.waitForURL(/tab=assignments/);
+          await page
+            .getByLabel(/^Organization to inspect/)
+            .selectOption({ label: "Fictional Unrelated Company" });
+          await page
+            .getByLabel(/^Assessing authority/)
+            .selectOption(authorityId);
+          await page
+            .getByRole("button", { name: "Assign authority", exact: true })
+            .click();
+          await page
+            .getByRole("status")
+            .filter({
+              hasText: "Authority assigned. Existing complaints retain",
+            })
+            .waitFor();
+          const result = await client!.query(
+            "SELECT authority_id FROM company_feedback.assessor_assignments WHERE organization_id=(SELECT id FROM company_feedback.organizations WHERE name=$1) AND ended_at IS NULL",
+            ["Fictional Unrelated Company"],
+          );
+          assert.equal(result.rows[0].authority_id, authorityId);
+        } finally {
+          await context.close();
         }
       },
     );

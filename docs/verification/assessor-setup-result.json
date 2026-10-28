@@ -1,0 +1,39 @@
+{
+  "checkedAt": "2026-10-28T08:27:51.171Z",
+  "productionBuild": "passed",
+  "typecheck": "passed",
+  "lint": "passed",
+  "unitTests": 17,
+  "isolatedSystemChecks": 41,
+  "auditedPageViewportCases": 26,
+  "browserWidths": [
+    1440,
+    390
+  ],
+  "seriousOrCriticalAxeViolations": 0,
+  "visualInspection": [
+    "mobile assessor membership",
+    "mobile authority registration",
+    "desktop public organization reply"
+  ],
+  "assessorSetup": {
+    "ordinaryOrganizationRejected": true,
+    "inactiveAuthorityRejected": true,
+    "consumerCannotGrantRole": true,
+    "noAuthorityEmptyState": true,
+    "roleFiltersAuthorityOptions": true,
+    "failedSelectionsPreserved": true,
+    "registrationPreselectsAssessment": true,
+    "newAuthorityPrefilledInMembership": true,
+    "registrationMembershipAndCoverageFlow": true
+  },
+  "replies": {
+    "organizationNameDerivedFromService": true,
+    "personalUsernameRemovedFromReplyPayload": true,
+    "organizationReplyBadgeRetained": true,
+    "originalAuthorRecordsPreserved": true
+  },
+  "productionDataTouched": false,
+  "liveDiagnostic": "read-only organization eligibility and authority count",
+  "credentialScan": "passed"
+}
